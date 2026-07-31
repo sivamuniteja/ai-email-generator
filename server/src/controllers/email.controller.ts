@@ -28,11 +28,16 @@ export const generateEmail = async (req: Request, res: Response) => {
     res.write("data: [DONE]\n\n");
     res.end();
   } catch (error: any) {
-    if (error instanceof z.ZodError) {
-      res.status(400).json({ error: "Invalid request payload", details: error.errors });
+    if (!res.headersSent) {
+      if (error instanceof z.ZodError) {
+        res.status(400).json({ error: "Invalid request payload", details: error.errors });
+      } else {
+        console.error("Generation Error:", error);
+        res.status(500).json({ error: error.message || "Failed to generate email" });
+      }
     } else {
-      console.error("Generation Error:", error);
-      res.status(500).json({ error: error.message || "Failed to generate email" });
+      console.error("Stream interrupted by error:", error);
+      res.end();
     }
   }
 };

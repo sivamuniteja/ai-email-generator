@@ -41,6 +41,9 @@ app.use((err: any, req: express.Request, res: express.Response, next: express.Ne
 
 // Export the Express app for Vercel Serverless Functions
 export default app;
+if (typeof module !== 'undefined') {
+  module.exports = app;
+}
 
 // Only start the server locally if not in Vercel
 if (process.env.NODE_ENV !== 'production') {
