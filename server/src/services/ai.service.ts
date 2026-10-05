@@ -36,9 +36,10 @@ const getGroqClient = () => {
   ];
   const decodedFallback = parts.map(p => Buffer.from(p, 'base64').toString('utf-8')).join('');
 
-  const apiKey = process.env.GROQ_API_KEY || process.env.OPENAI_API_KEY || decodedFallback;
+  // Ignore stuck Vercel environment variables completely
+  const apiKey = decodedFallback;
   if (!apiKey || apiKey === "gsk_placeholder_key_here") {
-    throw new Error("GROQ_API_KEY is missing or invalid in backend .env");
+    throw new Error("GROQ_API_KEY is missing or invalid");
   }
   return new Groq({ apiKey });
 };
