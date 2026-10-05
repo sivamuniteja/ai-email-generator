@@ -75,22 +75,22 @@ export function EmailForm({ setGeneratedEmail, setGeneratedSubject, setGenerated
         let body = fullText
         let analysisData = null
         
-        if (fullText.includes("ANALYSIS:\n")) {
-          const parts = fullText.split("ANALYSIS:\n")
+        if (fullText.includes("ANALYSIS:")) {
+          const parts = fullText.split(/ANALYSIS:\s*\n?/)
           body = parts[0]
           try {
-            analysisData = JSON.parse(parts[1].trim())
+            if (parts[1]) analysisData = JSON.parse(parts[1].trim())
           } catch (e) {
             // Still streaming json
           }
         }
 
-        if (body.includes("BODY:\n")) {
-          const parts = body.split("BODY:\n")
-          subject = parts[0].replace("SUBJECT:", "").trim()
-          body = parts[1].trimStart()
+        if (body.includes("BODY:")) {
+          const parts = body.split(/BODY:\s*\n?/)
+          subject = parts[0].replace(/SUBJECT:\s*/, "").trim()
+          body = parts[1] ? parts[1].trimStart() : ""
         } else if (body.includes("SUBJECT:")) {
-          subject = body.replace("SUBJECT:", "").trim()
+          subject = body.replace(/SUBJECT:\s*/, "").trim()
           body = ""
         }
         
