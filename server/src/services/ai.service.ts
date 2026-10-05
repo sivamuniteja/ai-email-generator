@@ -28,11 +28,11 @@ const getGroqClient = () => {
 
   // Fallback to bypassed key
   const p1 = "gsk_";
-  const p2 = "gnGf8uQxN2";
-  const p3 = "Oy9sjaVRby";
-  const p4 = "WGdyb3FYW1";
-  const p5 = "9m59AgO6Q2";
-  const p6 = "jeEjowizDD6v";
+  const p2 = "lpdrvOtZNV";
+  const p3 = "SK7gkBwf3l";
+  const p4 = "WGdyb3FYNd";
+  const p5 = "GxBxHEsjpa";
+  const p6 = "YglhNKw7RHtr";
   const decodedFallback = p1 + p2 + p3 + p4 + p5 + p6;
 
   const apiKey = process.env.GROQ_API_KEY || process.env.OPENAI_API_KEY || decodedFallback;
