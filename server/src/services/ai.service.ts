@@ -81,7 +81,7 @@ export async function streamEmailWithGroq(
   const prompt = buildPrompt(inputs);
 
   const stream = await client.chat.completions.create({
-    model: "llama3-8b-8192",
+    model: "openai/gpt-oss-20b",
     messages: [
       { role: "system", content: "You are an expert executive email copywriter. Always follow the structured output format exactly." },
       { role: "user", content: prompt }
@@ -119,7 +119,7 @@ export async function streamEmailImprovementWithGroq(
   }
 
   const stream = await client.chat.completions.create({
-    model: "llama3-8b-8192",
+    model: "openai/gpt-oss-20b",
     messages: [
       { role: "system", content: "You are an expert executive email copywriter. Return ONLY the rewritten email body. No subject, no chat." },
       { role: "user", content: `Here is an email:\n\n${currentEmail}\n\nTask: ${instruction}` }
